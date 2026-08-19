@@ -2,12 +2,11 @@ from pydantic import BaseModel
 
 
 class SnakeSpeciesCreate(BaseModel):
-    scientific_name: str
+    binomial_name: str
     vietnamese_name: str | None = None
-    common_name: str | None = None
-    family: str
-    genus: str
-    venomous: bool
+    family: str | None = None
+    genus: str | None = None
+    is_mivs: bool
 
 
 class SnakeSpeciesResponse(SnakeSpeciesCreate):

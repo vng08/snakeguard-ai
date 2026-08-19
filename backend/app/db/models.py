@@ -9,17 +9,17 @@ class SnakeSpecies(Base):
     __tablename__ = "snake_species"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    scientific_name = Column(String(255), unique=True, nullable=False)
 
+    binomial_name = Column(String(255), unique=True, nullable=False)
     vietnamese_name = Column(String(255), nullable=True)
-    common_name = Column(String(255), nullable=True)
 
-    family = Column(String(100), nullable=False)
-    genus = Column(String(100), nullable=False)
-    venomous = Column(Boolean, nullable=False)
-    
+    family = Column(String(100), nullable=True)
+    genus = Column(String(100), nullable=True)
+
+    is_mivs = Column(Boolean, nullable=False)
+
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False,)
 
 
 class SnakeImage(Base):
