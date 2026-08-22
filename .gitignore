@@ -16,3 +16,6 @@ venv/
 
 # Jupyter
 .ipynb_checkpoints/outputs/
+
+# output testing
+outputs/
