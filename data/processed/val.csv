@@ -346,7 +346,6 @@ observation_id,endemic,binomial_name,code,image_path,class_id,subset,label_idx,M
 30352781,True,Fowlea piscator,IN,2017/Fowlea_piscator/47417371.jpg,711,train,39,0
 30352781,True,Fowlea piscator,IN,2017/Fowlea_piscator/47417393.jpg,711,train,39,0
 30352781,True,Fowlea piscator,IN,2017/Fowlea_piscator/47417385.jpg,711,train,39,0
-33790188,False,Pseudoxenodon macrops,IN,2017/Pseudoxenodon_macrops/53108300.jpeg,1402,train,80,0
 110570747,False,Calamaria septentrionalis,CN,2017/Calamaria_septentrionalis/186545237.jpeg,277,train,17,0
 111166087,False,Ophiophagus hannah,BT,2017/Ophiophagus_hannah/187631522.jpg,1190,train,66,1
 119399684,False,Python bivittatus,CN,2017/Python_bivittatus/201836492.jpg,1418,train,86,0

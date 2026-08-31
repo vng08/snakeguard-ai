@@ -2841,8 +2841,6 @@ observation_id,endemic,binomial_name,code,image_path,class_id,subset,label_idx,M
 67466318,False,Boiga drapiezii,MY,2017/Boiga_drapiezii/109007543.jpg,185,train,7,0
 142641824,False,Boiga multomaculata,CN,2017/Boiga_multomaculata/244587740.jpg,194,train,10,0
 116373882,False,Naja kaouthia,BT,2017/Naja_kaouthia/196437248.jpg,1113,train,60,1
-38743135,False,Boiga cyanea,TH,2017/Boiga_cyanea/61623546.jpeg,182,train,5,0
-38743135,False,Boiga cyanea,TH,2017/Boiga_cyanea/61623587.jpeg,182,train,5,0
 132264902,False,Calloselasma rhodostoma,TH,2017/Calloselasma_rhodostoma/225214340.jpg,285,train,20,1
 132264902,False,Calloselasma rhodostoma,TH,2017/Calloselasma_rhodostoma/225214763.jpg,285,train,20,1
 142455130,False,Ptyas mucosa,LK,2017/Ptyas_mucosa/244228923.jpg,1414,train,85,0

@@ -19,3 +19,7 @@ venv/
 
 # output testing
 outputs/
+
+# dataset
+dataset/
+models/classification/convnextv2_best.pt

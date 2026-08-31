@@ -4,7 +4,7 @@ label_idx,class_id,binomial_name,MIVS,image_count
 2,40,Ahaetulla fusca,0,65
 3,47,Ahaetulla prasina,0,565
 4,66,Amphiesma stolatum,0,368
-5,182,Boiga cyanea,0,220
+5,182,Boiga cyanea,0,218
 6,184,Boiga dendrophila,0,177
 7,185,Boiga drapiezii,0,105
 8,190,Boiga jaspidea,0,90
@@ -79,7 +79,7 @@ label_idx,class_id,binomial_name,MIVS,image_count
 77,1329,Protobothrops jerdonii,1,39
 78,1330,Protobothrops mucrosquamatus,1,292
 79,1334,Psammodynastes pulverulentus,0,698
-80,1402,Pseudoxenodon macrops,0,84
+80,1402,Pseudoxenodon macrops,0,83
 81,1408,Ptyas carinata,0,120
 82,1409,Ptyas dhumnades,0,184
 83,1412,Ptyas korros,0,557
