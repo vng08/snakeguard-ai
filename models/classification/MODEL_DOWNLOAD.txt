@@ -1,0 +1,16 @@
+SnakeGuard AI - Classification Model
+
+The ConvNeXt-V2 classification model checkpoint is not included in this GitHub repository because it exceeds GitHub's file size limit.
+
+Model:
+ConvNeXt-V2 Base + ArcFace
+
+Download:
+https://huggingface.co/vng0824/convnextv2_best
+
+Direct download:
+https://huggingface.co/vng0824/convnextv2_best/resolve/main/convnextv2_best.pt
+
+After downloading, place the model checkpoint at:
+
+models/classification/convnextv2_best.pt
