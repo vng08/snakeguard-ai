@@ -1,5 +1,4 @@
-from pydantic import BaseModel
-
+from pydantic import BaseModel, ConfigDict
 
 class SnakeSpeciesCreate(BaseModel):
     binomial_name: str
@@ -8,9 +7,6 @@ class SnakeSpeciesCreate(BaseModel):
     genus: str | None = None
     is_mivs: bool
 
-
 class SnakeSpeciesResponse(SnakeSpeciesCreate):
     id: int
-
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

@@ -7,6 +7,8 @@ Plan.pdf
 
 # Python
 __pycache__/
+*.py[cod]
+.pytest_cache/
 
 # Virtual environment
 venv/
@@ -15,11 +17,14 @@ venv/
 .DS_Store
 
 # Jupyter
-.ipynb_checkpoints/outputs/
+.ipynb_checkpoints/
 
-# output testing
+# Outputs
 outputs/
+data/predictions/
 
-# dataset
+# Dataset
 dataset/
+
+# Large classification model
 models/classification/convnextv2_best.pt

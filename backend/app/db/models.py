@@ -40,13 +40,13 @@ class PredictionLog(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     image_url = Column(String(500), nullable=True)
+    bbox = Column(JSON, nullable=True)
+    detection_confidence = Column(Float, nullable=True)
 
     predicted_species_id = Column(Integer, ForeignKey("snake_species.id"), nullable=True)
     confidence = Column(Float, nullable=True)
-
     top_k_predictions = Column(JSON, nullable=True)
     model_version = Column(String(100), nullable=True)
-
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
 
 class KnowledgeDocument(Base):

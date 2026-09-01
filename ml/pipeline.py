@@ -4,19 +4,11 @@ from ml.classification.inference import SnakeClassifier
 
 class SnakeGuardPipeline:
     def __init__(self, detector_path, classifier_path, classes_path, detector_conf=0.48, detector_imgsz=640):
-        self.detector = SnakeDetector(
-            model_path=detector_path,
-            conf=detector_conf,
-            imgsz=detector_imgsz,
-        )
+        self.detector = SnakeDetector(model_path=detector_path, conf=detector_conf, imgsz=detector_imgsz,)
+        self.classifier = SnakeClassifier(model_path=classifier_path, classes_path=classes_path,)
 
-        self.classifier = SnakeClassifier(
-            model_path=classifier_path,
-            classes_path=classes_path,
-        )
-
-    def predict(self, image_path, top_k=3):
-        detections = self.detector.predict(image_path)
+    def predict(self, image, top_k=3):
+        detections = self.detector.predict(image)
         results = []
 
         for detection in detections:

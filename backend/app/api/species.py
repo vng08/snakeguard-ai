@@ -6,7 +6,7 @@ from backend.app.db.models import SnakeSpecies
 from backend.app.schemas.snake import SnakeSpeciesCreate, SnakeSpeciesResponse
 
 
-router = APIRouter(prefix="/species", tags=["Species"],)
+router = APIRouter(prefix="/species", tags=["Species"])
 
 @router.post("", response_model=SnakeSpeciesResponse)
 def create_species(data: SnakeSpeciesCreate, db: Session = Depends(get_db)):

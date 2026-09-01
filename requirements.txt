@@ -4,3 +4,13 @@ pydantic-settings
 sqlalchemy
 psycopg[binary]
 pgvector
+python-multipart==0.0.32
+alembic
+torch
+torchvision
+timm
+ultralytics
+pillow
+pandas
+pytest
+httpx2
