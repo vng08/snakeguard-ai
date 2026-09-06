@@ -23,7 +23,7 @@ def test_chat_knowledge_base_response(monkeypatch):
         "notice": None,
     })
 
-    response = client.post("/api/chat", json={"message": "Rắn cạp nong có đặc điểm gì?"})
+    response = client.post("/chat", json={"message": "Rắn cạp nong có đặc điểm gì?"})
     data = response.json()
 
     assert response.status_code == 200
@@ -45,7 +45,7 @@ def test_chat_casual_response(monkeypatch):
         "notice": None,
     })
 
-    response = client.post("/api/chat", json={"message": "Trời hôm nay đẹp nhỉ?"})
+    response = client.post("/chat", json={"message": "Trời hôm nay đẹp nhỉ?"})
     data = response.json()
 
     assert response.status_code == 200
@@ -66,7 +66,7 @@ def test_chat_unavailable_response(monkeypatch):
         "notice": "Tìm kiếm Internet hiện không khả dụng.",
     })
 
-    response = client.post("/api/chat", json={"message": "Rắn lạ này sống ở đâu?"})
+    response = client.post("/chat", json={"message": "Rắn lạ này sống ở đâu?"})
     data = response.json()
 
     assert response.status_code == 200
@@ -77,6 +77,6 @@ def test_chat_unavailable_response(monkeypatch):
 
 def test_chat_missing_message_returns_422():
     """Request thiếu message -> FastAPI validation trả 422."""
-    response = client.post("/api/chat", json={})
+    response = client.post("/chat", json={})
 
     assert response.status_code == 422

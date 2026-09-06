@@ -18,6 +18,9 @@ class Settings(BaseSettings):
     TAVILY_API_KEY: str
     LLM_MODEL: str = "openai/gpt-oss-20b"
 
+    IMAGE_RETRIEVAL_MODEL_NAME: str = "google/siglip2-base-patch16-224"
+    IMAGE_RETRIEVAL_EMBEDDING_DIM: int = 768
+
     MODEL_VERSION: str = "yolo26n_best+convnextv2_best"
 
     model_config = SettingsConfigDict(env_file=".env")

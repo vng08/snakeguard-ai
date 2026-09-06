@@ -4,7 +4,6 @@ from backend.app.db.base import Base
 from pgvector.sqlalchemy import Vector
 from sqlalchemy import Text
 
-
 class SnakeSpecies(Base):
     __tablename__ = "snake_species"
 
@@ -30,8 +29,10 @@ class SnakeImage(Base):
 
     image_url = Column(String(500), nullable=False)
     source = Column(String(255), nullable=True)
-
     license = Column(String(100), nullable=True)
+
+    embedding = Column(Vector(768), nullable=True)
+
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
 
 
