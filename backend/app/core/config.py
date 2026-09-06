@@ -9,6 +9,15 @@ class Settings(BaseSettings):
     CLASSIFIER_MODEL_PATH: Path = ROOT_DIR / "models/classification/convnextv2_best.pt"
     CLASSES_PATH: Path = ROOT_DIR / "data/processed/classes.csv"
     PREDICTION_STORAGE_DIR: Path = ROOT_DIR / "data/predictions"
+
+    EMBEDDING_MODEL_NAME: str = "BAAI/bge-m3"
+    RERANKER_MODEL_NAME: str = "BAAI/bge-reranker-v2-m3"
+    EMBEDDING_DIM: int = 1024
+
+    GROQ_API_KEY: str
+    TAVILY_API_KEY: str
+    LLM_MODEL: str = "openai/gpt-oss-20b"
+
     MODEL_VERSION: str = "yolo26n_best+convnextv2_best"
 
     model_config = SettingsConfigDict(env_file=".env")
