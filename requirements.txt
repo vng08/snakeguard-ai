@@ -23,6 +23,12 @@ httpx2
 
 openai
 tavily-python
+groq
 
 sentencepiece
 protobuf
+
+streamlit
+
+langgraph
+rapidfuzz

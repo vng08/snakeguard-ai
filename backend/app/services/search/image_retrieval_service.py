@@ -1,31 +1,35 @@
 from collections import defaultdict
 from sqlalchemy.orm import Session
 
+from backend.app.core.config import settings
 from backend.app.db.models import SnakeImage, SnakeSpecies
 from ml.image_retrieval.siglip_encoder import SigLIPEncoder
 
 
 _encoder = None
-TOP_IMAGE_WEIGHTS = [0.6, 0.3, 0.1]
 
 
-def get_encoder():
+def get_encoder() -> SigLIPEncoder:
+    """Lazy-load SigLIP encoder dùng cho image retrieval."""
     global _encoder
     if _encoder is None:
         _encoder = SigLIPEncoder()
     return _encoder
 
 
-def calculate_species_score(matches):
-    best_matches = sorted(matches, key=lambda x: x[0], reverse=True)[:3]
-    weights = TOP_IMAGE_WEIGHTS[:len(best_matches)]
+def calculate_species_score(matches: list) -> tuple:
+    """Tính score species từ các ảnh match tốt nhất."""
+    top_k = len(settings.SEARCH_TOP_IMAGE_WEIGHTS)
+    best_matches = sorted(matches, key=lambda item: item[0], reverse=True)[:top_k]
+    weights = settings.SEARCH_TOP_IMAGE_WEIGHTS[:len(best_matches)]
     weight_sum = sum(weights)
 
     score = sum(match[0] * weight for match, weight in zip(best_matches, weights)) / weight_sum
     return score, best_matches[0]
 
 
-def search_by_description(db: Session, description: str, top_k: int = 5):
+def search_by_description(db: Session, description: str, top_k: int = 5) -> list[dict]:
+    """Tìm species bằng similarity giữa description và image embedding."""
     query_embedding = get_encoder().encode_text(description)
     distance = SnakeImage.embedding.cosine_distance(query_embedding)
 
@@ -56,5 +60,5 @@ def search_by_description(db: Session, description: str, top_k: int = 5):
             "image_url": best_image.image_url,
         })
 
-    results.sort(key=lambda x: x["similarity"], reverse=True)
+    results.sort(key=lambda item: item["similarity"], reverse=True)
     return results[:top_k]

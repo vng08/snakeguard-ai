@@ -4,12 +4,14 @@ from backend.app.api.predict import router as predict_router
 from backend.app.core.lifespan import lifespan
 from backend.app.api.chat import router as chat_router
 from backend.app.api.search import router as search_router
+from backend.app.api.prediction_logs import router as prediction_logs_router
 
 app = FastAPI(lifespan=lifespan)
 
 app.include_router(species_router)
 app.include_router(predict_router)
 app.include_router(chat_router)
+app.include_router(prediction_logs_router)
 app.include_router(search_router)
 
 @app.get("/health", tags=["Health"])
