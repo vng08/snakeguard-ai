@@ -1,0 +1,33 @@
+/* ASSISTANT PAGE
+   Trang Chatbot */
+
+[data-testid="stSegmentedControl"] {
+    margin-bottom: 22px;
+}
+
+[data-testid="stChatMessage"] {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+[data-testid="stChatMessage"] p {
+    line-height: 1.65;
+}
+
+[data-testid="stChatInput"] {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+[data-testid="stChatInput"] > div {
+    border-radius: 18px;
+}
+
+[data-testid="stExpander"] {
+    max-width: 900px;
+    margin: 8px auto 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}

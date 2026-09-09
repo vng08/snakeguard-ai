@@ -1,0 +1,27 @@
+/* GLOBAL
+   Dùng chung cho toàn bộ ứng dụng */
+
+/* Nền chính */
+[data-testid="stAppViewContainer"],
+[data-testid="stMain"],
+.stApp {
+    background: #ffffff;
+}
+
+/* Header Streamlit */
+[data-testid="stHeader"] {
+    background: #ffffff;
+}
+
+/* Giới hạn chiều rộng nội dung */
+.block-container {
+    max-width: 1200px;
+    padding-top: 2rem;
+}
+
+/* Button dùng chung */
+.stButton > button {
+    min-height: 44px;
+    border-radius: 10px;
+    font-weight: 600;
+}

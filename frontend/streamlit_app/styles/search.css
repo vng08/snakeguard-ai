@@ -1,0 +1,175 @@
+/* SEARCH PAGE
+   Trang tìm rắn theo mô tả */
+
+[data-testid="stTextArea"] textarea {
+    border-radius: 14px;
+}
+
+
+/* SEARCH CONTROLS */
+
+.st-key-search_mode button:disabled,
+.st-key-search_mode [aria-disabled="true"] {
+    opacity: 0.75 !important;
+    color: #b91c1c !important;
+    background: #fff1f2 !important;
+    border-color: #fecaca !important;
+    cursor: not-allowed;
+}
+
+.st-key-search_submit button:disabled {
+    opacity: 1 !important;
+    color: #b91c1c !important;
+    background: #fee2e2 !important;
+    border-color: #fecaca !important;
+    cursor: not-allowed;
+}
+
+
+/* RESULT CARD */
+
+[class*="st-key-search_result_"] {
+    position: relative;
+    padding: 26px;
+    margin-bottom: 20px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 22px;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+[class*="st-key-search_result_"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 34px rgba(15, 23, 42, 0.11);
+}
+
+/* Căn giữa ảnh và nội dung */
+[class*="st-key-search_result_"] [data-testid="stHorizontalBlock"] {
+    align-items: center;
+}
+
+
+/* TOP BADGE */
+
+.search-rank {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    z-index: 5;
+    display: inline-block;
+    padding: 7px 14px;
+    background: #eef2f7;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #53657d;
+}
+
+
+/* IMAGE */
+
+[class*="st-key-search_result_"] [data-testid="stImage"] {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+[class*="st-key-search_result_"] [data-testid="stImage"] img {
+    width: 100%;
+    max-height: 230px;
+    object-fit: cover;
+    border-radius: 17px;
+}
+
+
+/* CONTENT */
+
+/* Đẩy toàn bộ cột thông tin sang phải nhẹ */
+[class*="st-key-search_result_"] [data-testid="stHorizontalBlock"] > [data-testid="stColumn"]:nth-child(2) {
+    padding-left: 32px;
+}
+
+/* Tên tiếng Việt */
+.search-title {
+    margin: 0 90px 6px 0;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.25;
+    color: #111827;
+}
+
+/* Tên khoa học */
+.search-binomial-name {
+    margin-bottom: 18px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #64748b;
+}
+
+/* Badge độc tính */
+.search-venom-badge {
+    display: inline-block;
+    padding: 9px 16px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.search-venom-badge.safe {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.search-venom-badge.danger {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+
+/* NO IMAGE */
+
+.search-no-image {
+    min-height: 210px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+    border: 1px dashed #cbd5e1;
+    border-radius: 17px;
+    color: #64748b;
+    font-weight: 600;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+    [class*="st-key-search_result_"] {
+        padding: 20px;
+    }
+
+    [class*="st-key-search_result_"] [data-testid="stHorizontalBlock"] > [data-testid="stColumn"]:nth-child(2) {
+        padding-left: 0;
+    }
+
+    .search-title {
+        margin-right: 0;
+        padding-top: 35px;
+        font-size: 24px;
+    }
+
+    .search-rank {
+        top: 14px;
+        right: 14px;
+    }
+
+    [class*="st-key-search_result_"] [data-testid="stImage"] img {
+        max-height: none;
+    }
+
+    .search-no-image {
+        min-height: 170px;
+    }
+}

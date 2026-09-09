@@ -1,0 +1,246 @@
+/* IDENTIFY PAGE
+   Trang nhận diện rắn từ ảnh */
+
+/* File uploader */
+[data-testid="stFileUploader"] {
+    padding: 16px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+}
+
+/* Ảnh */
+[data-testid="stImage"] img {
+    border-radius: 12px;
+}
+
+/* Card thông tin loài */
+.species-card {
+    padding: 32px;
+    margin: 24px 0 30px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.09);
+}
+
+/* Chia card thành thông tin loài và confidence */
+.species-main {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.species-info {
+    min-width: 0;
+}
+
+/* Tên tiếng Việt */
+.species-info h2 {
+    margin: 0;
+    font-size: 30px;
+    line-height: 1.25;
+    color: #111827;
+}
+
+/* Badge độc tính */
+.species-danger {
+    margin-top: 14px;
+}
+
+.venom-badge {
+    display: inline-block;
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.venom-badge.safe {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.venom-badge.danger {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* Tên khoa học, Họ và Chi */
+.species-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 28px;
+}
+
+.species-meta span,
+.species-meta strong {
+    display: block;
+}
+
+.species-meta span {
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.species-meta strong {
+    font-size: 18px;
+    color: #111827;
+}
+
+/* Khu vực độ tin cậy */
+.score-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.score-panel-title {
+    margin-bottom: 18px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #111827;
+}
+
+/* Hai donut confidence */
+.score-grid {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 45px;
+}
+
+.score-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 120px;
+}
+
+.score-donut {
+    width: 108px;
+    height: 108px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.score-donut-inner {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1px #f1f5f9;
+}
+
+.score-donut-inner strong {
+    font-size: 18px;
+    color: #111827;
+}
+
+.score-donut-inner span {
+    margin-top: 2px;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.score-label {
+    margin-top: 9px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4b5563;
+    text-align: center;
+}
+
+/* Card các kết quả dự đoán khác */
+.prediction-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.prediction-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+.prediction-rank {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: #f1f5f9;
+    border-radius: 50%;
+    font-weight: 700;
+    color: #374151;
+}
+
+.prediction-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.prediction-info strong,
+.prediction-info span {
+    display: block;
+}
+
+.prediction-info strong {
+    font-size: 16px;
+    color: #111827;
+}
+
+.prediction-info span {
+    margin-top: 3px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.prediction-score {
+    flex-shrink: 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+    .species-main {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .species-meta {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .score-panel {
+        align-items: flex-start;
+    }
+
+    .score-grid {
+        justify-content: flex-start;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+}

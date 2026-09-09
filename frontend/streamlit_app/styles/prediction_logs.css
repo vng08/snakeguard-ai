@@ -1,0 +1,98 @@
+/* PREDICTION LOGS PAGE
+   Trang lịch sử nhận diện */
+
+
+/* STATISTICS */
+
+.st-key-prediction_logs_stats {
+    max-width: 340px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.st-key-prediction_logs_stats [data-testid="stMetric"] {
+    min-height: 125px;
+    padding: 22px 24px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 18px;
+    box-shadow: 0 7px 22px rgba(15, 23, 42, 0.07);
+}
+
+.st-key-prediction_logs_stats [data-testid="stMetricLabel"] {
+    font-size: 15px;
+    font-weight: 700;
+    color: #475569;
+}
+
+.st-key-prediction_logs_stats [data-testid="stMetricValue"] {
+    margin-top: 5px;
+    font-size: 34px;
+    font-weight: 800;
+    color: #1d4ed8;
+}
+
+
+/* TABLE */
+
+.st-key-prediction_logs_table {
+    margin-top: 8px;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #dbe3ec;
+    border-radius: 16px;
+    box-shadow: 0 7px 24px rgba(15, 23, 42, 0.07);
+}
+
+/* Header */
+.st-key-prediction_logs_table [role="columnheader"] {
+    justify-content: center !important;
+    text-align: center !important;
+    font-weight: 700 !important;
+    color: #475569 !important;
+}
+
+/* Cell */
+.st-key-prediction_logs_table [role="gridcell"] {
+    justify-content: center !important;
+    text-align: center !important;
+}
+
+/* Nội dung bên trong cell */
+.st-key-prediction_logs_table [role="gridcell"] > div {
+    justify-content: center !important;
+    text-align: center !important;
+}
+
+/* Checkbox */
+.st-key-prediction_logs_table input[type="checkbox"] {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Ảnh */
+.st-key-prediction_logs_table img {
+    display: block;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    border-radius: 9px;
+    object-fit: cover;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+    .st-key-prediction_logs_stats {
+        max-width: 100%;
+    }
+
+    .st-key-prediction_logs_stats [data-testid="stMetric"] {
+        min-height: auto;
+        padding: 16px;
+    }
+
+    .st-key-prediction_logs_stats [data-testid="stMetricValue"] {
+        font-size: 27px;
+    }
+}

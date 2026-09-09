@@ -1,0 +1,67 @@
+/* HOME PAGE
+   Trang giới thiệu SnakeGuard AI */
+
+/* FEATURE CARDS */
+
+.feature-card {
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: 18px;
+    padding: 24px 26px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+}
+
+.feature-card-main {
+    min-height: 340px;
+}
+
+.feature-card-secondary {
+    min-height: 220px;
+}
+
+.feature-card h3 {
+    margin: 0 0 20px;
+    font-size: 23px;
+    font-weight: 800;
+    line-height: 1.25;
+    color: #111827;
+}
+
+.feature-card p {
+    margin: 0 0 10px;
+    font-size: 16px;
+    line-height: 1.65;
+    color: #374151;
+}
+
+.feature-card p:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 800px) {
+    .feature-card-main,
+    .feature-card-secondary {
+        min-height: auto;
+    }
+
+    .feature-card {
+        padding: 20px;
+    }
+
+    .feature-card h3 {
+        font-size: 21px;
+    }
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+    .feature-card {
+        height: auto;
+        min-height: 0;
+    }
+}
