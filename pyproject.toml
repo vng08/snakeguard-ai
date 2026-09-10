@@ -1,0 +1,9 @@
+[tool.ruff.lint.per-file-ignores]
+"backend/app/api/*.py" = ["B008"]
+
+# Cleanup khi Streamlit shutdown: lỗi cleanup không được làm app crash
+"frontend/streamlit_app/app.py" = ["BLE001", "S110"]
+
+# Batch processing: một ảnh lỗi không được làm dừng toàn bộ pipeline
+"scripts/data/crop_data.py" = ["BLE001"]
+"scripts/image_retrieval/embed_snake_images.py" = ["BLE001"]

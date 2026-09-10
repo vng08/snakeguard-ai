@@ -3,9 +3,11 @@ from sqlalchemy.orm import Session
 
 from backend.app.api.dependencies import get_db
 from backend.app.schemas.chat import ChatHistoryResponse, ChatRequest, ChatResponse
-from backend.app.services.rag.memory.chat_history_service import delete_chat_history, get_chat_history
+from backend.app.services.rag.memory.chat_history_service import (
+    delete_chat_history,
+    get_chat_history,
+)
 from backend.app.services.rag.orchestration.chat_service import chat
-
 
 router = APIRouter(tags=["Chat"])
 

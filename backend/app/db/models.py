@@ -1,8 +1,20 @@
 from datetime import datetime
-from sqlalchemy import Boolean, Column, DateTime, Float, ForeignKey, Integer, JSON, String
-from backend.app.db.base import Base
+
 from pgvector.sqlalchemy import Vector
-from sqlalchemy import Text
+from sqlalchemy import (
+    JSON,
+    Boolean,
+    Column,
+    DateTime,
+    Float,
+    ForeignKey,
+    Integer,
+    String,
+    Text,
+)
+
+from backend.app.db.base import Base
+
 
 class SnakeSpecies(Base):
     __tablename__ = "snake_species"

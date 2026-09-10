@@ -84,12 +84,12 @@ def valid_species_page(soup, binomial_name):
 
 def clean_distribution(text):
     """Loại Type locality khỏi thông tin phân bố."""
-    text = re.split(r"\bType locality\s*:", text, maxsplit=1, flags=re.I)[0]
+    text = re.split(r"\bType locality\s*:", text, maxsplit=1, flags=re.IGNORECASE)[0]
     return clean_text(text)
 
 def clean_diagnosis(text):
     """Làm sạch phần đặc điểm nhận dạng."""
-    text = re.sub(r"^Diagnosis\s*:\s*", "", text, flags=re.I)
+    text = re.sub(r"^Diagnosis\s*:\s*", "", text, flags=re.IGNORECASE)
     boilerplate = "Unfortunately we had to temporarily remove additional information"
 
     if boilerplate.lower() in text.lower():
@@ -103,7 +103,7 @@ def extract_labeled_text(text, labels):
     stop_labels = "Habitat|Ecology|Behavior|Behaviour|Diet|Distribution|Abundance|Variation|Synonymy|Taxonomy|Subspecies|Type species|Etymology|Reproduction|Genome"
 
     for label in labels:
-        match = re.search(rf"\b{re.escape(label)}\s*:\s*(.*?)(?=\b(?:{stop_labels})\s*:|$)", text, flags=re.I)
+        match = re.search(rf"\b{re.escape(label)}\s*:\s*(.*?)(?=\b(?:{stop_labels})\s*:|$)", text, flags=re.IGNORECASE)
         if not match:
             continue
 

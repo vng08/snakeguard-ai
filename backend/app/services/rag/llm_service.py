@@ -1,8 +1,9 @@
 import json
 from functools import lru_cache
-from openai import OpenAI
-from backend.app.core.config import settings
 
+from openai import OpenAI
+
+from backend.app.core.config import settings
 
 PROVIDER_BASE_URLS = {
     "groq": "https://api.groq.com/openai/v1",

@@ -1,8 +1,9 @@
 from urllib.parse import urlparse
+
 from tavily import TavilyClient
+
 from backend.app.core.config import settings
 from backend.app.services.rag.orchestration.state import ChatState
-
 
 _tavily_client = None
 

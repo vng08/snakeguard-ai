@@ -12,7 +12,6 @@ from backend.app.db.models import SnakeSpecies
 from backend.app.services.rag.embedding_service import get_embedding_model
 from backend.app.services.rag.tools.reranker import rerank_species
 
-
 _species_embedding_cache = None
 
 
@@ -33,15 +32,13 @@ def resolve_species(db: Session, species_text: str, search_mode: Literal["fast",
 
     # Kiểm tra query là một phần của tên hoặc alias
     partial_candidates = _find_partial_matches(query, name_entries)
-    if partial_candidates:
-        if search_mode == "fast" or len(partial_candidates) == 1:
-            return _finalize_candidates(partial_candidates)
+    if partial_candidates and (search_mode == "fast" or len(partial_candidates) == 1):
+        return _finalize_candidates(partial_candidates)
 
     # Ratio xử lý typo và resolve ngay nếu có một candidate đủ chắc chắn
     fuzzy_candidates = _find_fuzzy_matches(query, name_entries)
-    if fuzzy_candidates:
-        if search_mode == "fast" or _is_confident_match(fuzzy_candidates):
-            return _finalize_candidates(fuzzy_candidates)
+    if fuzzy_candidates and (search_mode == "fast" or _is_confident_match(fuzzy_candidates)):
+        return _finalize_candidates(fuzzy_candidates)
 
     if search_mode == "fast":
         return _build_result("not_found", [])
@@ -69,11 +66,7 @@ def _build_name_entries(species_list: list[SnakeSpecies]) -> list[dict]:
             names.extend(_split_aliases(species.vietnamese_name))
 
         for name in names:
-            entries.append({
-                "species": species,
-                "name": name,
-                "normalized_name": _normalize_name(name),
-            })
+            entries.append({"species": species, "name": name, "normalized_name": _normalize_name(name)})
 
     return entries
 
@@ -219,16 +212,16 @@ def _merge_candidates(*candidate_groups: list[dict]) -> list[dict]:
 
             current = merged[species_id]
 
-            if candidate["lexical_score"] is not None:
-                if current["lexical_score"] is None or candidate["lexical_score"] > current["lexical_score"]:
-                    current["lexical_score"] = candidate["lexical_score"]
-                    current["matched_name"] = candidate["matched_name"]
-                    current["score"] = candidate["score"]
-                    current["match_type"] = candidate["match_type"]
+            lexical_score = candidate["lexical_score"]
+            if lexical_score is not None and (current["lexical_score"] is None or lexical_score > current["lexical_score"]):
+                current["lexical_score"] = lexical_score
+                current["matched_name"] = candidate["matched_name"]
+                current["score"] = candidate["score"]
+                current["match_type"] = candidate["match_type"]
 
-            if candidate["semantic_score"] is not None:
-                if current["semantic_score"] is None or candidate["semantic_score"] > current["semantic_score"]:
-                    current["semantic_score"] = candidate["semantic_score"]
+            semantic_score = candidate["semantic_score"]
+            if semantic_score is not None and (current["semantic_score"] is None or semantic_score > current["semantic_score"]):
+                current["semantic_score"] = semantic_score
 
     return list(merged.values())
 

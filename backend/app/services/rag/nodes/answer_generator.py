@@ -1,7 +1,6 @@
 from backend.app.services.rag.llm_service import generate_text
 from backend.app.services.rag.orchestration.state import ChatState
 
-
 GROUNDED_SYSTEM_PROMPT = """
 Bạn là trợ lý SnakeGuard AI chuyên hỗ trợ kiến thức về rắn.
 

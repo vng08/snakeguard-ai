@@ -1,12 +1,15 @@
-from pathlib import Path
 import sys
+from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT_DIR))
 
 from backend.app.db.session import SessionLocal
 from backend.app.services.search.description_analyzer import analyze_description
-from backend.app.services.search.hybrid_retrieval_service import hybrid_search, search_species_knowledge
+from backend.app.services.search.hybrid_retrieval_service import (
+    hybrid_search,
+    search_species_knowledge,
+)
 from backend.app.services.search.image_retrieval_service import search_by_description
 
 

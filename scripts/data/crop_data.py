@@ -1,8 +1,8 @@
 from pathlib import Path
+
 import pandas as pd
 
 from ml.detection.inference import SnakeDetector
-
 
 ROOT = Path(__file__).resolve().parents[1]
 INPUT_DIR = ROOT / "dataset" / "selected"

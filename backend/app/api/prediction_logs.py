@@ -3,8 +3,11 @@ from sqlalchemy.orm import Session
 
 from backend.app.api.dependencies import get_db
 from backend.app.schemas.prediction import PredictionLogResponse
-from backend.app.services.prediction.prediction_log_service import delete_all_prediction_logs, delete_prediction_log, get_prediction_logs
-
+from backend.app.services.prediction.prediction_log_service import (
+    delete_all_prediction_logs,
+    delete_prediction_log,
+    get_prediction_logs,
+)
 
 router = APIRouter(prefix="/prediction-logs", tags=["Prediction Logs"])
 

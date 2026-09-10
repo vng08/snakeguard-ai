@@ -1,7 +1,8 @@
 from pathlib import Path
-from PIL import Image
-from ml.image_retrieval.siglip_encoder import SigLIPEncoder
 
+from PIL import Image
+
+from ml.image_retrieval.siglip_encoder import SigLIPEncoder
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
 

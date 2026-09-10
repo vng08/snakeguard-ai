@@ -1,6 +1,6 @@
 from io import BytesIO
-from PIL import Image, ImageDraw, ImageOps
 
+from PIL import Image, ImageDraw, ImageOps
 
 
 def _transform_bbox(bbox: list[int], width: int, height: int, orientation: int) -> list[int]:

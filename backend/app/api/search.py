@@ -2,10 +2,12 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from backend.app.api.dependencies import get_db
-from backend.app.schemas.search import SearchByDescriptionRequest, SearchByDescriptionResponse
+from backend.app.schemas.search import (
+    SearchByDescriptionRequest,
+    SearchByDescriptionResponse,
+)
 from backend.app.services.search.description_analyzer import analyze_description
 from backend.app.services.search.hybrid_retrieval_service import hybrid_search
-
 
 router = APIRouter(tags=["Search"])
 

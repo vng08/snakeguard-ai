@@ -2,7 +2,6 @@ from backend.app.schemas.chat import AnswerEvaluation
 from backend.app.services.rag.llm_service import generate_json
 from backend.app.services.rag.orchestration.state import ChatState
 
-
 SYSTEM_PROMPT = """
 Bạn là Answer Evaluator của SnakeGuard AI.
 

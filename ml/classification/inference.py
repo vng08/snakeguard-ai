@@ -1,12 +1,11 @@
 from pathlib import Path
 
 import pandas as pd
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
 import timm
-
+import torch
+import torch.nn.functional as F
 from PIL import Image, ImageOps
+from torch import nn
 from torchvision import transforms
 from torchvision.transforms import InterpolationMode
 

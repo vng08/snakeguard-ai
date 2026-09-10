@@ -1,7 +1,8 @@
 import math
-from sentence_transformers import CrossEncoder
-from backend.app.core.config import settings
 
+from sentence_transformers import CrossEncoder
+
+from backend.app.core.config import settings
 
 _reranker_model = None
 

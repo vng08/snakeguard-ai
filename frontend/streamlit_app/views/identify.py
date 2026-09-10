@@ -1,6 +1,5 @@
 import requests
 import streamlit as st
-
 from components.prediction_result import render_other_predictions, render_species_card
 from services.api_client import get_species, predict_snake
 from utils.image_utils import draw_detection_box

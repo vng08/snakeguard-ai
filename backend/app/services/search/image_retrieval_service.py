@@ -1,10 +1,10 @@
 from collections import defaultdict
+
 from sqlalchemy.orm import Session
 
 from backend.app.core.config import settings
 from backend.app.db.models import SnakeImage, SnakeSpecies
 from ml.image_retrieval.siglip_encoder import SigLIPEncoder
-
 
 _encoder = None
 

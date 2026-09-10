@@ -2,7 +2,10 @@ from typing import Literal
 
 from sqlalchemy.orm import Session
 
-from backend.app.services.rag.memory.chat_history_service import get_chat_history, save_chat_message
+from backend.app.services.rag.memory.chat_history_service import (
+    get_chat_history,
+    save_chat_message,
+)
 from backend.app.services.rag.orchestration.graph import build_chat_graph
 from backend.app.services.rag.orchestration.state import ChatState
 

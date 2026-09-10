@@ -2,7 +2,6 @@ import html
 
 import requests
 import streamlit as st
-
 from services.api_client import search_snakes_by_description
 
 

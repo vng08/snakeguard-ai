@@ -1,5 +1,7 @@
 from uuid import uuid4
+
 from PIL import Image
+
 from backend.app.core.config import ROOT_DIR, settings
 
 

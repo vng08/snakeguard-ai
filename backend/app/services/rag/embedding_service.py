@@ -1,6 +1,6 @@
 from sentence_transformers import SentenceTransformer
-from backend.app.core.config import settings
 
+from backend.app.core.config import settings
 
 _embedding_model = None
 

@@ -1,7 +1,6 @@
 from backend.app.schemas.search import DescriptionAnalysis
 from backend.app.services.rag.llm_service import generate_json
 
-
 DESCRIPTION_SYSTEM_INSTRUCTION = """
 Bạn là Description Analyzer của SnakeGuard AI.
 

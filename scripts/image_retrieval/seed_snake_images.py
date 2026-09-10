@@ -1,6 +1,6 @@
-from pathlib import Path
 import random
 import sys
+from pathlib import Path
 
 import pandas as pd
 from sqlalchemy import select

@@ -1,5 +1,5 @@
-from PIL import Image
 import torch
+from PIL import Image
 from transformers import AutoModel, AutoProcessor
 
 from backend.app.core.config import settings

@@ -1,7 +1,6 @@
 import pandas as pd
 import requests
 import streamlit as st
-
 from services.api_client import get_species
 
 

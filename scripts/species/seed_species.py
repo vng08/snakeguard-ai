@@ -4,7 +4,6 @@ from sqlalchemy import select
 from backend.app.db.models import SnakeSpecies
 from backend.app.db.session import SessionLocal
 
-
 DATA_PATH = "data/processed/species_metadata.csv"
 
 

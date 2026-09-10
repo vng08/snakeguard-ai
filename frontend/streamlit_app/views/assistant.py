@@ -4,7 +4,6 @@ import uuid
 
 import requests
 import streamlit as st
-
 from services.api_client import delete_chat_history, get_chat_history, send_chat_message
 
 

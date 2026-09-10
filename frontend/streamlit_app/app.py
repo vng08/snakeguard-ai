@@ -2,7 +2,6 @@ import atexit
 from pathlib import Path
 
 import streamlit as st
-
 from services.api_client import delete_chat_history
 from views.assistant import render_assistant_page
 from views.home import render_home_page

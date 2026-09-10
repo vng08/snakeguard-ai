@@ -5,7 +5,6 @@ from backend.app.api.dependencies import get_db
 from backend.app.db.models import SnakeSpecies
 from backend.app.schemas.snake import SnakeSpeciesResponse
 
-
 router = APIRouter(tags=["Species"])
 
 

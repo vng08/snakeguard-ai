@@ -1,7 +1,7 @@
-from pathlib import Path
 import shutil
-import pandas as pd
+from pathlib import Path
 
+import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 META_DIR = ROOT / "data" / "processed"

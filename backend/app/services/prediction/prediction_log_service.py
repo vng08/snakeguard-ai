@@ -1,7 +1,11 @@
-from sqlalchemy.orm import Session
 from sqlalchemy import text
+from sqlalchemy.orm import Session
+
 from backend.app.db.models import PredictionLog, SnakeSpecies
-from backend.app.services.media.storage_service import delete_all_prediction_images, delete_prediction_image
+from backend.app.services.media.storage_service import (
+    delete_all_prediction_images,
+    delete_prediction_image,
+)
 
 
 def save_prediction_log(db: Session, result: dict | None, image_url: str, model_version: str) -> PredictionLog:

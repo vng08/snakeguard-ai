@@ -7,7 +7,6 @@ from backend.app.schemas.prediction import PredictionResponse
 from backend.app.services.media.image_service import decode_image
 from backend.app.services.prediction.prediction_service import PredictionService
 
-
 router = APIRouter(tags=["Prediction"])
 
 

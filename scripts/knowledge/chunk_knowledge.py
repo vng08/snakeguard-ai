@@ -1,8 +1,8 @@
 import json
 import re
+import sys
 from collections import Counter
 from pathlib import Path
-import sys
 
 import numpy as np
 from transformers import AutoTokenizer

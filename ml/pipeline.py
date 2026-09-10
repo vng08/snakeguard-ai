@@ -1,5 +1,5 @@
-from ml.detection.inference import SnakeDetector
 from ml.classification.inference import SnakeClassifier
+from ml.detection.inference import SnakeDetector
 
 
 class SnakeGuardPipeline:

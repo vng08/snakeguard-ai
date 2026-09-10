@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
@@ -9,7 +9,6 @@ from backend.app.api.dependencies import get_db
 
 class FakeDB:
     """Giả lập database session cho API test."""
-    pass
 
 
 def create_client():
@@ -39,7 +38,7 @@ def make_log():
             }
         ],
         "model_version": "test-model",
-        "created_at": datetime(2026, 9, 7, 12, 0, 0),
+        "created_at": datetime(2026, 9, 7, 12, 0, 0, tzinfo=timezone.utc),
     }
 
 

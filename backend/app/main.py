@@ -1,10 +1,11 @@
 from fastapi import FastAPI
-from backend.app.api.species import router as species_router
-from backend.app.api.predict import router as predict_router
-from backend.app.core.lifespan import lifespan
+
 from backend.app.api.chat import router as chat_router
-from backend.app.api.search import router as search_router
+from backend.app.api.predict import router as predict_router
 from backend.app.api.prediction_logs import router as prediction_logs_router
+from backend.app.api.search import router as search_router
+from backend.app.api.species import router as species_router
+from backend.app.core.lifespan import lifespan
 
 app = FastAPI(lifespan=lifespan)
 

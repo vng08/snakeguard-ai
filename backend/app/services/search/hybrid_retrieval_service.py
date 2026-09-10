@@ -9,7 +9,6 @@ from backend.app.services.rag.embedding_service import embed_query
 from backend.app.services.rag.tools.reranker import rerank_species_profiles
 from backend.app.services.search.image_retrieval_service import search_by_description
 
-
 DESCRIPTION_SECTIONS = ["identification", "habitat_behavior", "distribution"]
 
 

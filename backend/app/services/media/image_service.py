@@ -1,5 +1,7 @@
 from io import BytesIO
+
 from PIL import Image, UnidentifiedImageError
+
 from backend.app.core.config import settings
 
 

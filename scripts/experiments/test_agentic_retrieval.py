@@ -5,8 +5,8 @@ ROOT_DIR = Path(__file__).resolve().parents[2]
 sys.path.append(str(ROOT_DIR))
 
 from backend.app.db.session import SessionLocal
-from backend.app.services.rag.tools.retrieval import retrieve_knowledge
 from backend.app.services.rag.tools.reranker import rerank_documents
+from backend.app.services.rag.tools.retrieval import retrieve_knowledge
 from backend.app.services.rag.tools.species_resolver import resolve_species
 
 

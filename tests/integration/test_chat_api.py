@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from types import SimpleNamespace
 
 from fastapi.testclient import TestClient
@@ -7,13 +7,11 @@ from backend.app.api import chat as chat_api
 from backend.app.api.dependencies import get_db
 from backend.app.main import app
 
-
 client = TestClient(app)
 
 
 class FakeDB:
     """Giả lập database session cho Chat API."""
-    pass
 
 
 def override_get_db():
@@ -51,8 +49,8 @@ def test_send_message(monkeypatch):
 def test_get_chat_history(monkeypatch):
     """Test GET /chat/{session_id} trả lịch sử conversation."""
     messages = [
-        SimpleNamespace(id=1, session_id="test-session", role="user", content="Xin chào", created_at=datetime(2026, 9, 8, 10, 0)),
-        SimpleNamespace(id=2, session_id="test-session", role="assistant", content="Chào bạn!", created_at=datetime(2026, 9, 8, 10, 1)),
+        SimpleNamespace(id=1, session_id="test-session", role="user", content="Xin chào", created_at=datetime(2026, 9, 8, 10, 0, tzinfo=timezone.utc)),
+        SimpleNamespace(id=2, session_id="test-session", role="assistant", content="Chào bạn!", created_at=datetime(2026, 9, 8, 10, 1, tzinfo=timezone.utc)),
     ]
 
     monkeypatch.setattr(chat_api, "get_chat_history", lambda db, session_id: messages)
