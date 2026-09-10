@@ -1,8 +1,5 @@
-import json
-
-from backend.app.core.config import settings
 from backend.app.schemas.search import DescriptionAnalysis
-from backend.app.services.rag.llm_service import get_llm_client
+from backend.app.services.rag.llm_service import generate_json
 
 
 DESCRIPTION_SYSTEM_INSTRUCTION = """
@@ -32,22 +29,13 @@ Quy tắc:
 
 def analyze_description(description: str) -> DescriptionAnalysis:
     """Phân tích description và xác định hướng hybrid search."""
-    client = get_llm_client()
-
-    response = client.chat.completions.create(
-        model=settings.LLM_MODEL,
-        messages=[
+    try:
+        result = generate_json([
             {"role": "system", "content": DESCRIPTION_SYSTEM_INSTRUCTION},
             {"role": "user", "content": description},
-        ],
-        temperature=0,
-        reasoning_effort="low",
-        max_completion_tokens=200,
-        response_format={"type": "json_object"},
-    )
+        ], temperature=0)
 
-    try:
-        data = json.loads(response.choices[0].message.content or "{}")
-        return DescriptionAnalysis.model_validate(data)
-    except (json.JSONDecodeError, ValueError):
+        return DescriptionAnalysis.model_validate(result)
+
+    except (ValueError, TypeError):
         return DescriptionAnalysis(route="unspecified", focus="mixed")

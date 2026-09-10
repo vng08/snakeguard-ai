@@ -8,33 +8,48 @@ from PIL import Image
 
 from backend.app.db.models import SnakeImage
 from backend.app.db.session import SessionLocal
-from ml.image_retrieval.siglip_encoder import SigLIPEncoder
 
 
 def resolve_image_path(image_url: str) -> Path:
+    """Chuyển image_url trong DB thành đường dẫn file thực tế."""
     path = Path(image_url)
     return path if path.is_absolute() else ROOT_DIR / path
 
 
 def index_embeddings():
+    """Tạo embedding chỉ cho các ảnh chưa được index."""
     db = SessionLocal()
-    encoder = SigLIPEncoder()
-    indexed, skipped, failed = 0, 0, 0
 
     try:
-        images = db.query(SnakeImage).all()
+        # Chỉ lấy những ảnh chưa có embedding
+        images = db.query(SnakeImage).filter(
+            SnakeImage.embedding.is_(None)
+        ).all()
+
+        if not images:
+            print("No images need embedding. Skipping SigLIP loading.")
+            return
+
+        print(f"Images to embed: {len(images)}")
+
+        # Chỉ load model khi thực sự còn ảnh cần embedding
+        from ml.image_retrieval.siglip_encoder import SigLIPEncoder
+        encoder = SigLIPEncoder()
+
+        indexed = 0
+        failed = 0
 
         for image_row in images:
-            if image_row.embedding is not None:
-                skipped += 1
-                continue
-
             try:
                 image_path = resolve_image_path(image_row.image_url)
-                image = Image.open(image_path).convert("RGB")
-                image_row.embedding = encoder.encode_image(image)
+
+                with Image.open(image_path) as image:
+                    image = image.convert("RGB")
+                    image_row.embedding = encoder.encode_image(image)
+
                 indexed += 1
 
+                # Commit theo batch để tránh giữ transaction quá lớn
                 if indexed % 100 == 0:
                     db.commit()
                     print(f"Indexed: {indexed}")
@@ -44,9 +59,9 @@ def index_embeddings():
                 print(f"Failed image_id={image_row.id}: {e}")
 
         db.commit()
+
         print(f"Indexed: {indexed}")
-        print(f"Skipped: {skipped}")
-        print(f"Failed: {failed}")
+        print(f"Failed : {failed}")
 
     except Exception:
         db.rollback()

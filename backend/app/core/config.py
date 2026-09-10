@@ -1,4 +1,5 @@
 from pathlib import Path
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -42,10 +43,13 @@ class Settings(BaseSettings):
     RAG_DEEP_TOP_K: int = 5
     RAG_DEEP_CANDIDATE_K: int = 20
 
-    # Cấu hình LLM và web search
-    GROQ_API_KEY: str
+    # Cấu hình LLM
+    LLM_PROVIDER: str
+    LLM_API_KEY: str
+    LLM_MODEL: str
+
+    # Cấu hình web search
     TAVILY_API_KEY: str
-    LLM_MODEL: str = "openai/gpt-oss-20b"
 
     # Cấu hình model retrieval ảnh
     IMAGE_RETRIEVAL_MODEL_NAME: str = "google/siglip2-base-patch16-224"
@@ -62,10 +66,8 @@ class Settings(BaseSettings):
     # Dynamic weight cho Weighted RRF
     SEARCH_VISUAL_IMAGE_WEIGHT: float = 0.7
     SEARCH_VISUAL_KNOWLEDGE_WEIGHT: float = 0.3
-
     SEARCH_MIXED_IMAGE_WEIGHT: float = 0.5
     SEARCH_MIXED_KNOWLEDGE_WEIGHT: float = 0.5
-
     SEARCH_CONTEXTUAL_IMAGE_WEIGHT: float = 0.4
     SEARCH_CONTEXTUAL_KNOWLEDGE_WEIGHT: float = 0.6
 

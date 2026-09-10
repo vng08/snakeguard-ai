@@ -6,7 +6,7 @@ import numpy as np
 from sqlalchemy import func, select
 
 # CONFIG
-ROOT_DIR = Path(__file__).resolve().parents[1]
+ROOT_DIR = Path(__file__).resolve().parents[2]
 CHUNKS_PATH = ROOT_DIR / "data/processed/chunks.jsonl"
 EMBEDDINGS_PATH = ROOT_DIR / "data/processed/embeddings.npy"
 
@@ -60,7 +60,8 @@ def ingest(chunks, embeddings):
     try:
         existing = db.scalar(select(func.count()).select_from(KnowledgeDocument))
         if existing:
-            raise ValueError(f"knowledge_documents đã có {existing} records, dừng để tránh duplicate.")
+            print(f"knowledge_documents đã có {existing} records, bỏ qua ingestion.")
+            return 0
 
         species_map = load_species_map(db)
         print(f"Species trong DB: {len(species_map)}")

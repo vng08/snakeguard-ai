@@ -3,14 +3,114 @@ services:
     image: pgvector/pgvector:pg16
     container_name: snakeguard-postgres
     restart: unless-stopped
+
     environment:
       POSTGRES_USER: snakeguard
       POSTGRES_PASSWORD: snakeguard
       POSTGRES_DB: snakeguard
+
     ports:
       - "5432:5432"
+
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U snakeguard -d snakeguard"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  db-init:
+    build:
+      context: .
+      dockerfile: infra/docker/backend.Dockerfile
+
+    container_name: snakeguard-db-init
+    restart: "no"
+
+    env_file:
+      - .env
+
+    environment:
+      DATABASE_URL: postgresql+psycopg://snakeguard:snakeguard@postgres:5432/snakeguard
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    entrypoint:
+      - /app/infra/docker/db-init.sh
+
+    volumes:
+      - yolo_crop_data:/app/dataset/yolo-crop
+      - huggingface_cache:/root/.cache/huggingface
+
+  backend:
+    build:
+      context: .
+      dockerfile: infra/docker/backend.Dockerfile
+
+    container_name: snakeguard-backend
+    restart: unless-stopped
+
+    env_file:
+      - .env
+
+    environment:
+      DATABASE_URL: postgresql+psycopg://snakeguard:snakeguard@postgres:5432/snakeguard
+
+    ports:
+      - "8000:8000"
+
+    depends_on:
+      db-init:
+        condition: service_completed_successfully
+
+    volumes:
+      - classifier_model:/app/models/classification
+      - huggingface_cache:/root/.cache/huggingface
+
+      # Ảnh prediction sinh trong runtime, lưu trực tiếp ra máy host
+      - ./data/predictions:/app/data/predictions
+
+      # Dataset reference do db-init tải về, backend chỉ cần đọc
+      - yolo_crop_data:/app/dataset/yolo-crop:ro
+
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 120s
+
+  frontend:
+    build:
+      context: .
+      dockerfile: infra/docker/frontend.Dockerfile
+
+    container_name: snakeguard-frontend
+    restart: unless-stopped
+
+    environment:
+      SNAKEGUARD_API_BASE_URL: http://backend:8000
+      SNAKEGUARD_API_TIMEOUT: 120
+
+    ports:
+      - "8501:8501"
+
+    depends_on:
+      backend:
+        condition: service_healthy
+
+      
+    volumes:
+      # Frontend cần đọc ảnh reference để Streamlit hiển thị
+      - yolo_crop_data:/app/dataset/yolo-crop:ro
+      - ./data/predictions:/app/data/predictions:ro
+
 volumes:
   postgres_data:
+  classifier_model:
+  huggingface_cache:
+  yolo_crop_data:

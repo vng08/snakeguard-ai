@@ -1,5 +1,4 @@
-from backend.app.core.config import settings
-from backend.app.services.rag.llm_service import get_llm_client
+from backend.app.services.rag.llm_service import generate_text
 from backend.app.services.rag.orchestration.state import ChatState
 
 
@@ -36,7 +35,7 @@ Thông tin về hệ thống:
 - SnakeGuard AI hiện hỗ trợ dữ liệu của khoảng 109 loài rắn.
 - Hệ thống có thể nhận diện rắn từ hình ảnh.
 - Hệ thống có thể tìm loài rắn dựa trên mô tả về màu sắc, hoa văn, hình dạng, môi trường sống, tập tính hoặc vị trí bắt gặp.
-- Chatbot có thể hỏi đáp kiến thức về rắn bằng Agentic RAG.
+- Chatbot có thể hỏi đáp kiến thức về rắn bằng Agentic RAG workflow.
 - Kiến thức về rắn được lấy chủ yếu từ knowledge base nội bộ; khi thông tin chưa đủ, hệ thống có thể tìm thêm từ Internet.
 - Chatbot hỗ trợ hai chế độ tìm kiếm Fast và Deep.
 
@@ -89,7 +88,6 @@ def generate_answer(state: ChatState) -> dict:
 
 def _generate_grounded_answer(state: ChatState) -> str:
     """Tạo câu trả lời dựa trên knowledge base và web context."""
-    client = get_llm_client()
     query = state["analysis"]["standalone_query"]
     documents = state.get("kb_documents", []) + state.get("web_documents", [])
     context = _format_documents(documents)
@@ -112,21 +110,14 @@ Context:
 Hãy trả lời câu hỏi dựa trên context trên và tuân thủ các quy tắc về Species Resolver và Web Search.
 """
 
-    response = client.chat.completions.create(
-        model=settings.LLM_MODEL,
-        messages=[
-            {"role": "system", "content": GROUNDED_SYSTEM_PROMPT},
-            {"role": "user", "content": prompt},
-        ],
-        temperature=0.2,
-    )
-
-    return response.choices[0].message.content.strip()
+    return generate_text([
+        {"role": "system", "content": GROUNDED_SYSTEM_PROMPT},
+        {"role": "user", "content": prompt},
+    ], temperature=0.2).strip()
 
 
 def _generate_casual_answer(state: ChatState) -> str:
     """Tạo câu trả lời cho hội thoại không cần retrieval."""
-    client = get_llm_client()
     history = _format_history(state.get("history", []))
 
     prompt = f"""
@@ -137,21 +128,14 @@ Tin nhắn hiện tại:
 {state["message"]}
 """
 
-    response = client.chat.completions.create(
-        model=settings.LLM_MODEL,
-        messages=[
-            {"role": "system", "content": CASUAL_SYSTEM_PROMPT},
-            {"role": "user", "content": prompt},
-        ],
-        temperature=0.4,
-    )
-
-    return response.choices[0].message.content.strip()
+    return generate_text([
+        {"role": "system", "content": CASUAL_SYSTEM_PROMPT},
+        {"role": "user", "content": prompt},
+    ], temperature=0.4).strip()
 
 
 def _generate_insufficient_answer(state: ChatState) -> str:
     """Tạo câu trả lời an toàn khi KB và web vẫn chưa đủ thông tin."""
-    client = get_llm_client()
     query = state["analysis"]["standalone_query"]
     missing_information = state.get("evaluation", {}).get("missing_information")
     species_context = _format_species_context(state)
@@ -171,16 +155,10 @@ Thông tin chưa thể xác minh:
 {missing_information or "Không có đủ thông tin đáng tin cậy để trả lời."}
 """
 
-    response = client.chat.completions.create(
-        model=settings.LLM_MODEL,
-        messages=[
-            {"role": "system", "content": INSUFFICIENT_SYSTEM_PROMPT},
-            {"role": "user", "content": prompt},
-        ],
-        temperature=0,
-    )
-
-    return response.choices[0].message.content.strip()
+    return generate_text([
+        {"role": "system", "content": INSUFFICIENT_SYSTEM_PROMPT},
+        {"role": "user", "content": prompt},
+    ], temperature=0).strip()
 
 
 def _format_species_context(state: ChatState) -> str:
