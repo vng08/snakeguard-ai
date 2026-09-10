@@ -1,34 +1,5 @@
-fastapi
-uvicorn
-pydantic-settings
-sqlalchemy
-psycopg[binary]
-pgvector
-python-multipart==0.0.32
-alembic
-
-torch
-torchvision
-timm
-ultralytics
-pillow
-
-numpy
-pandas
-sentence-transformers
-transformers
+-r backend/requirements.txt
+-r frontend/requirements.txt
 
 pytest
-httpx2
-
-openai
-tavily-python
-groq
-
-sentencepiece
-protobuf
-
-streamlit
-
-langgraph
-rapidfuzz
+ruff
