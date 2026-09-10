@@ -6,7 +6,7 @@ from pathlib import Path
 import pandas as pd
 import requests
 import streamlit as st
-from config import VN_TIMEZONE
+from config import ERROR_MESSAGE, VN_TIMEZONE
 from services.api_client import (
     delete_all_prediction_logs,
     delete_prediction_log,
@@ -24,8 +24,8 @@ def render_prediction_logs_page():
         with st.spinner("Đang tải lịch sử nhận diện..."):
             logs = get_prediction_logs()
             species_list = get_species()
-    except requests.RequestException as exc:
-        st.error(f"Không thể tải lịch sử nhận diện: {exc}")
+    except requests.RequestException:
+        st.error(ERROR_MESSAGE)
         return
 
     if isinstance(logs, dict):
@@ -41,7 +41,6 @@ def render_prediction_logs_page():
         st.metric("Tổng số lần nhận diện", len(logs))
 
     st.markdown("### Danh sách lịch sử")
-
     dataframe = _build_logs_dataframe(logs, species_by_id)
 
     # Chiều cao ôm theo số dòng, nhiều log thì mới cuộn dọc.
@@ -77,7 +76,6 @@ def _build_logs_dataframe(logs: list[dict], species_by_id: dict) -> pd.DataFrame
 
     for log in logs:
         species_id = log.get("predicted_species_id")
-
         rows.append({
             "_log_id": log.get("id"),
             "Chọn": False,
@@ -118,7 +116,7 @@ def _format_datetime(value) -> str:
     try:
         dt = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
 
-        # Backend đang lưu datetime.utcnow nên datetime không timezone được hiểu là UTC.
+        # Backend lưu datetime UTC nhưng có thể không kèm timezone.
         if dt.tzinfo is None:
             dt = dt.replace(tzinfo=timezone.utc)
 
@@ -162,7 +160,6 @@ def _confirm_delete_selected(log_ids: list[int]):
     """Xác nhận xoá các prediction log đã chọn."""
     st.warning(f"{len(log_ids)} mục đã chọn sẽ bị xoá và không thể khôi phục.")
     st.write("Bạn có chắc chắn muốn tiếp tục không?")
-
     col1, col2 = st.columns(2)
 
     with col1:
@@ -175,8 +172,8 @@ def _confirm_delete_selected(log_ids: list[int]):
                 for log_id in log_ids:
                     delete_prediction_log(int(log_id))
                 st.rerun()
-            except requests.RequestException as exc:
-                st.error(f"Không thể xoá lịch sử: {exc}")
+            except requests.RequestException:
+                st.error(ERROR_MESSAGE)
 
 
 @st.dialog("Xoá toàn bộ lịch sử")
@@ -184,7 +181,6 @@ def _confirm_delete_all_logs():
     """Xác nhận xoá toàn bộ prediction logs."""
     st.warning("Toàn bộ lịch sử nhận diện sẽ bị xoá và không thể khôi phục.")
     st.write("Bạn có chắc chắn muốn tiếp tục không?")
-
     col1, col2 = st.columns(2)
 
     with col1:
@@ -196,5 +192,5 @@ def _confirm_delete_all_logs():
             try:
                 delete_all_prediction_logs()
                 st.rerun()
-            except requests.RequestException as exc:
-                st.error(f"Không thể xoá lịch sử: {exc}")
+            except requests.RequestException:
+                st.error(ERROR_MESSAGE)

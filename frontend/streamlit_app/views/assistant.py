@@ -4,6 +4,7 @@ import uuid
 
 import requests
 import streamlit as st
+from config import ERROR_MESSAGE
 from services.api_client import delete_chat_history, get_chat_history, send_chat_message
 
 
@@ -70,16 +71,8 @@ def _initialize_chat():
 
 def _queue_message(prompt: str, search_mode: str):
     """Đưa message vào hàng chờ và khoá chat trước khi gọi backend."""
-    st.session_state.chat_messages.append({
-        "role": "user",
-        "content": prompt,
-        "sources": [],
-    })
-
-    st.session_state.chat_pending = {
-        "message": prompt,
-        "search_mode": search_mode,
-    }
+    st.session_state.chat_messages.append({"role": "user", "content": prompt, "sources": []})
+    st.session_state.chat_pending = {"message": prompt, "search_mode": search_mode}
     st.session_state.chat_is_running = True
     st.rerun()
 
@@ -114,16 +107,10 @@ def _run_pending_message():
             })
 
         except (requests.RequestException, KeyError, TypeError, ValueError):
-            error_message = (
-                "Hệ thống hiện đang gặp sự cố hoặc chưa thể xử lý yêu cầu này. "
-                "Vui lòng thử lại sau."
-            )
-
-            st.markdown(error_message)
-
+            _stream_assistant_answer(ERROR_MESSAGE)
             st.session_state.chat_messages.append({
                 "role": "assistant",
-                "content": error_message,
+                "content": ERROR_MESSAGE,
                 "sources": [],
             })
 
@@ -174,10 +161,7 @@ def _render_sources(sources: list[dict]):
 @st.dialog("Tạo cuộc trò chuyện mới")
 def _confirm_new_conversation():
     """Xác nhận trước khi xoá cuộc trò chuyện hiện tại."""
-    st.warning(
-        "Toàn bộ lịch sử và dữ liệu của cuộc trò chuyện hiện tại sẽ bị xoá "
-        "và không thể khôi phục."
-    )
+    st.warning("Toàn bộ lịch sử và dữ liệu của cuộc trò chuyện hiện tại sẽ bị xoá và không thể khôi phục.")
     st.write("Bạn có chắc chắn muốn tiếp tục không?")
 
     col1, col2 = st.columns(2)
@@ -200,5 +184,5 @@ def _new_conversation():
         st.session_state.chat_pending = None
         st.session_state.chat_is_running = False
         st.rerun()
-    except requests.RequestException as exc:
-        st.error(f"Không thể tạo cuộc trò chuyện mới: {exc}")
+    except requests.RequestException:
+        st.error(ERROR_MESSAGE)

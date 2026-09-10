@@ -8,15 +8,6 @@
 
 /* SEARCH CONTROLS */
 
-.st-key-search_mode button:disabled,
-.st-key-search_mode [aria-disabled="true"] {
-    opacity: 0.75 !important;
-    color: #b91c1c !important;
-    background: #fff1f2 !important;
-    border-color: #fecaca !important;
-    cursor: not-allowed;
-}
-
 .st-key-search_submit button:disabled {
     opacity: 1 !important;
     color: #b91c1c !important;

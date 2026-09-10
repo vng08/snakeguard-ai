@@ -5,3 +5,4 @@ from zoneinfo import ZoneInfo
 API_BASE_URL = os.getenv("SNAKEGUARD_API_BASE_URL", "http://127.0.0.1:8000",).rstrip("/")
 API_TIMEOUT = float(os.getenv("SNAKEGUARD_API_TIMEOUT", "120"))
 VN_TIMEZONE = ZoneInfo("Asia/Ho_Chi_Minh")
+ERROR_MESSAGE = "Hệ thống hiện đang gặp sự cố. Vui lòng thử lại sau."

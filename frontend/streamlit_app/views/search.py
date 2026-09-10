@@ -2,6 +2,7 @@ import html
 
 import requests
 import streamlit as st
+from config import ERROR_MESSAGE
 from services.api_client import search_snakes_by_description
 
 
@@ -12,7 +13,6 @@ def render_search_page():
 
     st.title("🔎 Tìm rắn theo mô tả")
     st.caption("Mô tả đặc điểm, môi trường sống hoặc tập tính của con rắn để tìm các loài phù hợp.")
-
     st.markdown("### Mô tả con rắn")
 
     description = st.text_area(
@@ -39,21 +39,9 @@ def render_search_page():
         )
 
     with col2:
-        top_k = st.selectbox(
-            "Số kết quả",
-            options=[1, 2, 3, 4, 5],
-            index=4,
-            disabled=searching,
-            key="search_top_k",
-        )
+        top_k = st.selectbox("Số kết quả", options=[1, 2, 3, 4, 5], index=4, disabled=searching, key="search_top_k")
 
-    if st.button(
-        "🔎 Tìm kiếm",
-        type="primary",
-        width="stretch",
-        disabled=searching,
-        key="search_submit",
-    ):
+    if st.button("🔎 Tìm kiếm", type="primary", width="stretch", disabled=searching, key="search_submit"):
         if len(description.strip()) < 3:
             st.warning("Hãy nhập mô tả chi tiết hơn về con rắn.")
         else:
@@ -97,18 +85,12 @@ def _run_pending_search():
 
     try:
         with st.spinner("Đang phân tích mô tả và tìm kiếm loài phù hợp..."):
-            response = search_snakes_by_description(
-                pending["description"],
-                pending["search_mode"],
-                pending["top_k"],
-            )
+            response = search_snakes_by_description(pending["description"], pending["search_mode"], pending["top_k"])
 
         st.session_state.search_results = response.get("results", [])
 
-    except requests.HTTPError as exc:
-        st.session_state.search_error = ("warning", _get_http_error(exc))
-    except requests.RequestException as exc:
-        st.session_state.search_error = ("error", f"Không thể kết nối tới SnakeGuard API: {exc}")
+    except requests.RequestException:
+        st.session_state.search_error = ("error", ERROR_MESSAGE)
 
     st.session_state.search_is_running = False
     st.session_state.search_pending = None
@@ -141,7 +123,6 @@ def _render_results(results: list[dict]):
     for index, result in enumerate(results, start=1):
         with st.container(key=f"search_result_{index}"):
             st.markdown(f'<span class="search-rank">Top {index}</span>', unsafe_allow_html=True)
-
             image_col, info_col = st.columns([1.05, 1.95], vertical_alignment="center")
 
             with image_col:
@@ -159,22 +140,4 @@ def _render_results(results: list[dict]):
 
                 st.markdown(f'<div class="search-title">{vietnamese_name}</div>', unsafe_allow_html=True)
                 st.markdown(f'<div class="search-binomial-name">{binomial_name}</div>', unsafe_allow_html=True)
-                st.markdown(
-                    f'<span class="search-venom-badge {venom_class}">{venom_text}</span>',
-                    unsafe_allow_html=True,
-                )
-
-
-def _get_http_error(exc: requests.HTTPError) -> str:
-    """Lấy detail từ lỗi Search API."""
-    response = exc.response
-
-    if response is not None:
-        try:
-            detail = response.json().get("detail")
-            if detail:
-                return detail
-        except ValueError:
-            pass
-
-    return f"Search API trả về lỗi: {exc}"
+                st.markdown(f'<span class="search-venom-badge {venom_class}">{venom_text}</span>', unsafe_allow_html=True)

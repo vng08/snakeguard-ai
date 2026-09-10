@@ -220,6 +220,15 @@
     font-weight: 700;
 }
 
+/* Trạng thái đang nhận diện */
+.st-key-identify_submit button:disabled {
+    opacity: 1 !important;
+    color: #b91c1c !important;
+    background: #fee2e2 !important;
+    border-color: #fecaca !important;
+    cursor: not-allowed;
+}
+
 
 /* RESPONSIVE */
 
